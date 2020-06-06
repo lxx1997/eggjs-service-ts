@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import jwt from 'jsonwebtoken';
+import * as jwt from 'jsonwebtoken';
 
 // 生成token
 export function loginToken(data, expires = 60 * 60 * 24) {
@@ -34,4 +34,12 @@ export function createUser(id: string) {
     create_by: id,
     create_date: Date().toLocaleString(),
   };
+}
+
+export function objectIsNull(obj: Record<string, any>) {
+  return JSON.stringify(obj) === '{}';
+}
+
+export function arrayIsNull(obj: Record<string, any>) {
+  return obj.length === 0;
 }

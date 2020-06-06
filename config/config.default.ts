@@ -32,7 +32,7 @@ export default (appInfo: EggAppInfo) => {
   };
   config.jwt = {
     enable: true,
-    ignore: [ '/api/v1/login', '/public/', '/api/v1/reister' ],
+    ignore: [ '/api/v1/login', '/public/', '/api/v1/register', '/swagger-ui.html', '/swagger-doc', '/swagger-ui.css', '/swagger-ui-bundle.js', '/swagger-ui-standalone-preset.js' ],
   };
   // egg-swagger-doc 配置信息。
   exports.swaggerdoc = {

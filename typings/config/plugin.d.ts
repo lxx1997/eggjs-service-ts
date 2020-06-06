@@ -33,7 +33,7 @@ declare module 'egg' {
     static?: EggPluginItem;
     jsonp?: EggPluginItem;
     view?: EggPluginItem;
-    sequlize?: EggPluginItem;
+    sequelize?: EggPluginItem;
     cors?: EggPluginItem;
     redis?: EggPluginItem;
     swaggerdoc?: EggPluginItem;

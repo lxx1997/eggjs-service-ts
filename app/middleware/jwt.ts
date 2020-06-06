@@ -1,8 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import jwt from 'jsonwebtoken';
-import { Code } from '../utils/util';
-module.exports = app => {
+import * as jwt from 'jsonwebtoken';
+module.exports = (options, app) => {
   function verifyToken(token) {
     // 获取公钥
     const cert = fs.readFileSync(path.join(__dirname, '../public/rsa_public_key.pem'));
@@ -15,6 +14,7 @@ module.exports = app => {
         res = result.data || {};
       }
     } catch (error) {
+      console.log(options);
       throw (error);
     }
     return res;
@@ -24,10 +24,11 @@ module.exports = app => {
     if (authoken) {
       try {
         const res: any = verifyToken(authoken);
-        if (res.userId && res.username) {
-          const redis_token = await app.redis.get(res.userId + res.username);
+        if (res.userid && res.username) {
+          const redis_token = await app.redis.get(res.userid + res.username);
+          console.log(authoken, redis_token, authoken === redis_token);
           if (authoken === redis_token) {
-            ctx.locals.userId = res.userId;
+            ctx.locals.userid = res.userid;
             ctx.locals.username = res.username;
             await next();
           } else {
@@ -37,7 +38,7 @@ module.exports = app => {
           ctx.body = Object.assign({}, { code: 417, msg: '登陆状态已过期' });
         }
       } catch (error) {
-        ctx.body = Object.assign({}, Code.ERROR(error));
+        throw (error);
       }
     } else {
       ctx.body = Object.assign({}, { code: 401, msg: '请登录后再进行操作' });
