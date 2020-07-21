@@ -17,7 +17,8 @@ export default class LoginController extends Controller {
     const { ctx } = this;
     const { username, password } = ctx.request.query;
     const userinfo = await ctx.service.users.getUserInfoByUsername({ username, password });
-    if (userinfo.length > 0) {
+    // console.log(userinfo);
+    if (userinfo) {
       const userid = userinfo.id;
       const token = await loginToken({ userid, username }, 60 * 60 * 24);
       await this.app.redis.set(userid + username, token, 'ex', 60 * 60 * 24);

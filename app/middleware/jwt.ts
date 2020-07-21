@@ -26,7 +26,6 @@ module.exports = (options, app) => {
         const res: any = verifyToken(authoken);
         if (res.userid && res.username) {
           const redis_token = await app.redis.get(res.userid + res.username);
-          console.log(authoken, redis_token, authoken === redis_token);
           if (authoken === redis_token) {
             ctx.locals.userid = res.userid;
             ctx.locals.username = res.username;
@@ -38,7 +37,7 @@ module.exports = (options, app) => {
           ctx.body = Object.assign({}, { code: 417, msg: '登陆状态已过期' });
         }
       } catch (error) {
-        throw (error);
+        ctx.body = Object.assign({}, { code: 417, msg: '登陆状态已过期' });
       }
     } else {
       ctx.body = Object.assign({}, { code: 401, msg: '请登录后再进行操作' });

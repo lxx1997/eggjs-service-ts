@@ -1,5 +1,6 @@
 
 import EicUser from '../model/eic-user';
+import EicNovel from '../model/eic-novel';
 module.exports = {
   LoginResult: {
     code: {
@@ -36,4 +37,19 @@ module.exports = {
       type: 'string',
     },
   },
+  // pages: {
+  //   page: {
+  //     type: 'number',
+  //   },
+  //   pageSize: {
+  //     type: 'number',
+  //   },
+  //   total: {
+  //     type: 'total',
+  //   },
+  //   list: {
+  //     type: 'array',
+  //     itemType: EicNovel,
+  //   },
+  // },
 };
